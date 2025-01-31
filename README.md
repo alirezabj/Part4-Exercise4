@@ -108,11 +108,10 @@ abstract public class Zipper<X> implements AutoCloseable {
         }
     }
 
-    /**
-     * Executes unzipping and creates a handler for every created file.
-     *
-     * @return A list of processed objects of type X.
-     * @throws IOException In case of any I/O errors.
+    /*
+     * executes unzipping and creates a handler for every created file
+     * @return a list of processed objects of type X
+     * @throws IOException In case of any I/O errors
      */
     public List<X> run() throws IOException {
         unzip();
@@ -120,10 +119,9 @@ abstract public class Zipper<X> implements AutoCloseable {
     }
 
     /**
-     * Creates handlers for all files in the extracted folder.
-     *
-     * @return A list of handlers for processing the extracted files.
-     * @throws IOException In case of any I/O errors.
+     * creates handlers for all files in the extracted folder
+     * @return a list of handlers for processing the extracted files
+     * @throws IOException In case of any I/O errors
      */
     protected List<Handler<X>> createHandlers() throws IOException {
         try (final var stream = Files.list(tempDirectory)) {
@@ -132,34 +130,31 @@ abstract public class Zipper<X> implements AutoCloseable {
     }
 
     /**
-     * Creates a handler for a given file.
-     *
-     * @param file The file to be processed.
-     * @return A handler for processing the file.
+     * creates a handler for a given file
+     * @param file The file to be processed
+     * @return A handler for processing the file
      */
     protected abstract Handler<X> createHandler(Path file);
 
     /**
-     * A generic handler for processing extracted files.
-     *
-     * @param <X> The type of result returned after processing the file.
+     * a generic handler for processing extracted files
+     * @param <X> The type of result returned after processing the file
      */
     protected abstract static class Handler<X> {
         protected final Path file;
 
-        /**
-         * Initializes the handler with a file.
+        /*
+         * Initializes the handler with a file
          *
-         * @param file The file to be handled.
+         * @param file The file to be handled 
          */
         public Handler(Path file) {
             this.file = file;
         }
 
         /**
-         * Processes the file and returns the result.
-         *
-         * @return The processed result of type X.
+         * Processes the file 
+         * @return The processed result of type X
          */
         public abstract X handle();
     }
