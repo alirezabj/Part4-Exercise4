@@ -239,3 +239,112 @@ class TestZipper extends Zipper<Void> {
 
 --
 
+
+**Modifying TestZipper2 to use generics**
+
+```java
+package fi.utu.tech.ooj.exercise4.exercise2;
+
+import fi.utu.tech.ooj.exercise4.exercise1.Zipper;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+
+class Book {
+}
+
+class TestZipper2 extends Zipper<Book> {
+    private final List<Book> books = new ArrayList<>();
+    private int idx = 0;
+
+    TestZipper2(String zipFile) throws IOException {
+        super(zipFile);
+    }
+
+    @Override
+    public void run() throws IOException {
+        super.run();
+
+        System.out.printf("""
+
+                Handled %d Books.
+                Now we could sort it out a bit.
+
+                """, idx); 
+    }
+
+    @Override
+    protected Handler<Book> createHandler(Path file) {
+        return new Handler<>(file) {
+            @Override
+            public Book handle() {
+                Book book = new Book();
+                books.add(book); 
+                idx++; 
+                return book;
+            }
+        };
+    }
+}
+
+
+```
+
+**Changes:**
+- TestZipper2 extends Zipper<Book> - `TestZipper2` is genenric and now it works with `Book` objects explicitly 
+- replacing Book[] books with List<Book> books	- allowing dynamic handling of books without a fixed array size
+- changing run() method return type from void to List<Book> - now it returns a list of processed books instead of modifying a field directly
+- updating createHandler() to return Handler<Book> to ensure handlers return Book objects
+- handle() to return a Book object - each handler now creates and returns a Book
+
+### C)
+
+**Define the sorting interface**
+```java
+package fi.utu.tech.ooj.exercise4.exercise4;
+
+import java.util.List;
+
+/*
+ * define a generic sorting mechanism for books
+ */
+@FunctionalInterface
+public interface BookSorter {
+    /*
+     * sorts a list of books based on a specific criterion.
+     * @param books The list of books to sort.
+     * @return A new sorted list of books.
+     */
+    List<Book> sort(List<Book> books);
+}
+
+```
+- This interface allows different sorting strategies to be implemented without modifying the existing code. This interface is also generic because it does not specify how the books should be sorted leaving it open for different implementations.
+
+**Define a method to sort and print books**
+
+```java
+package fi.utu.tech.ooj.exercise4.exercise4;
+
+import java.util.List;
+
+/*
+ * utility class to handle book sorting operations
+ */
+public class BookCollectionHandler {
+    /**
+     * sort and print books based on the given sorting strategy
+     * @param books The list of books to sort
+     * @param sorter The sorting strategy to apply
+     */
+    public static void processAndPrintBooks(List<Book> books, BookSorter sorter) {
+        List<Book> sortedBooks = sorter.sort(books);
+        sortedBooks.forEach(System.out::println);
+    }
+}
+
+```
+- This method ensures that sorting and printing are handled in a single and reusable function.
+
+
