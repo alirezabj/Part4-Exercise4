@@ -167,3 +167,75 @@ abstract public class Zipper<X> implements AutoCloseable {
 - Updated run() to return a list of results. Now, run() collects the results from all handlers and returns them as a List<X>.
 - Updated Handler class to be generic. Each handler now returns an object instead of just processing files.
 
+--
+
+**Modifying TestZipper to use generics**
+
+```java
+package fi.utu.tech.ooj.exercise4.exercise1;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
+import java.util.regex.Pattern;
+
+// use generics but returns no meaningful data
+class TestZipper extends Zipper<Void> {  
+    TestZipper(String zipFile) throws IOException {
+        super(zipFile);
+    }
+
+    @Override
+    public List<Void> run() throws IOException {
+         // process files but return an empty list
+        return super.run();
+    }
+
+    @Override
+    protected Handler<Void> createHandler(Path file) {
+        return new Handler<>(file) {
+            @Override
+            public Void handle() throws IOException {
+                var regex = Pattern.compile("\\W");
+                var contents = Files.readString(file);
+                var lines = Files.readAllLines(file);
+                var firstLine = lines.isEmpty() ? "unknown" : lines.getFirst();
+                var words = regex.splitAsStream(contents)
+                        .filter(s -> !s.isBlank())
+                        .map(String::toLowerCase)
+                        .toList();
+
+                System.out.printf("""
+                                
+                                Originally was fetched from %s.
+                                The founded file is %s.
+                                The file contains %d lines.
+                                The file contains %d words.
+                                Possible title of the work: %s
+                                
+                                """,
+                        tempDirectory,
+                        file.getFileName(),
+                        lines.size(),
+                        words.size(),
+                        firstLine
+                );
+
+                // must return null because Void cannot have a value
+                return null; 
+            }
+        };
+    }
+}
+
+```
+
+**Changes:**
+- extends Zipper<Void> - using generics but does not return data since void means nothig
+- List<Void> run()	- calling `super.run()` but returns an empty list since Void is used
+- Handler<Void> - the handler still processes files but does not return anything useful
+- returning null - since Void is used we must return null explicitly
+
+--
+
