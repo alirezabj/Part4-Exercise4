@@ -264,7 +264,7 @@ class TestZipper2 extends Zipper<Book> {
 
     @Override
     public void run() throws IOException {
-        List<Book> processedBooks = super.run();  // 2. Capture the returned List<Book> from super.run()
+        List<Book> processedBooks = super.run(); 
         
         // 3. Add processed books to the books array (keeping original logic)
         for (Book book : processedBooks) {
@@ -280,11 +280,11 @@ class TestZipper2 extends Zipper<Book> {
     }
 
     @Override
-    protected Handler<Book> createHandler(Path file) {  // 4. Use generics in Handler<Book>
+    protected Handler<Book> createHandler(Path file) { 
         return new Handler<>(file) {
             @Override
             public Book handle() {
-                return new Book();  // 5. Return a Book object instead of modifying the array directly
+                return new Book();   
             }
         };
     }
