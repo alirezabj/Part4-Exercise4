@@ -2,7 +2,6 @@
 
 
 
-
 ### A and B)
 
 **Modifying Zipper to use generics**
