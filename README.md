@@ -307,49 +307,20 @@ class TestZipper2 extends Zipper<Book> {
 
 **Define the sorting interface**
 ```java
-package fi.utu.tech.ooj.exercise4.exercise4;
+package fi.utu.tech.ooj.exercise4.exercise2;
 
 import java.util.List;
 
-/*
- * define a generic sorting mechanism for books
- */
-@FunctionalInterface
-public interface BookSorter {
-    /*
-     * sorts a list of books based on a specific criterion.
-     * @param books The list of books to sort.
-     * @return A new sorted list of books.
-     */
+// interface for sorting books
+public interface BookCollectionSorter {
     List<Book> sort(List<Book> books);
 }
 
-```
-- This interface allows different sorting strategies to be implemented without modifying the existing code. This interface is also generic because it does not specify how the books should be sorted leaving it open for different implementations.
+// interface for printing books
+public interface BookCollectionPrinter {
+    void print(List<Book> books);
 
-**Define a method to sort and print books**
-
-```java
-package fi.utu.tech.ooj.exercise4.exercise4;
-
-import java.util.List;
-
-/*
- * utility class to handle book sorting operations
- */
-public class BookCollectionHandler {
-    /**
-     * sort and print books based on the given sorting strategy
-     * @param books The list of books to sort
-     * @param sorter The sorting strategy to apply
-     */
-    public static void processAndPrintBooks(List<Book> books, BookSorter sorter) {
-        List<Book> sortedBooks = sorter.sort(books);
-        sortedBooks.forEach(System.out::println);
-    }
-}
 
 ```
-- This method ensures that sorting and printing are handled in a single and reusable function.
 
 
