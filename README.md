@@ -266,7 +266,6 @@ class TestZipper2 extends Zipper<Book> {
     public void run() throws IOException {
         List<Book> processedBooks = super.run(); 
         
-        // 3. Add processed books to the books array (keeping original logic)
         for (Book book : processedBooks) {
             if (idx < books.length) {
                 books[idx++] = book;
@@ -274,8 +273,10 @@ class TestZipper2 extends Zipper<Book> {
         }
 
         System.out.printf("""
+
                 Handled %d Books.
                 Now we could sort it out a bit.
+
                 """, idx);
     }
 
