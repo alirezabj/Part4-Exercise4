@@ -242,19 +242,20 @@ class TestZipper extends Zipper<Void> {
 **Modifying TestZipper2 to use generics**
 
 ```java
+
 package fi.utu.tech.ooj.exercise4.exercise2;
 
 import fi.utu.tech.ooj.exercise4.exercise1.Zipper;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 
 class Book {
 }
 
-class TestZipper2 extends Zipper<Book> {
-    private final List<Book> books = new ArrayList<>();
+class TestZipper2 extends Zipper<Book> { 
+    
+    private Book[] books = new Book[100];  
     private int idx = 0;
 
     TestZipper2(String zipFile) throws IOException {
@@ -263,25 +264,27 @@ class TestZipper2 extends Zipper<Book> {
 
     @Override
     public void run() throws IOException {
-        super.run();
+        List<Book> processedBooks = super.run();  // 2. Capture the returned List<Book> from super.run()
+        
+        // 3. Add processed books to the books array (keeping original logic)
+        for (Book book : processedBooks) {
+            if (idx < books.length) {
+                books[idx++] = book;
+            }
+        }
 
         System.out.printf("""
-
                 Handled %d Books.
                 Now we could sort it out a bit.
-
-                """, idx); 
+                """, idx);
     }
 
     @Override
-    protected Handler<Book> createHandler(Path file) {
+    protected Handler<Book> createHandler(Path file) {  // 4. Use generics in Handler<Book>
         return new Handler<>(file) {
             @Override
             public Book handle() {
-                Book book = new Book();
-                books.add(book); 
-                idx++; 
-                return book;
+                return new Book();  // 5. Return a Book object instead of modifying the array directly
             }
         };
     }
