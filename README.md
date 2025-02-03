@@ -295,10 +295,12 @@ class TestZipper2 extends Zipper<Book> {
 
 **Changes:**
 - TestZipper2 extends Zipper<Book> - `TestZipper2` is genenric and now it works with `Book` objects explicitly 
-- replacing Book[] books with List<Book> books	- allowing dynamic handling of books without a fixed array size
-- changing run() method return type from void to List<Book> - now it returns a list of processed books instead of modifying a field directly
-- updating createHandler() to return Handler<Book> to ensure handlers return Book objects
-- handle() to return a Book object - each handler now creates and returns a Book
+- captures the returned `List<Book>` from `super.run()` - The run() method now captures the list of processed Book objects returned from the super.run() call.
+- add processed books to the `books` array
+- use genenrics in `Handler<Book>`
+- `handle()` returnes a book object. 
+
+
 
 ### C)
 
