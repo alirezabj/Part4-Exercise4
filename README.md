@@ -537,9 +537,9 @@ class BookCollectionHandler {
     }
 
     public void handleSorting(BookCollectionSorter sorter) {
-        // call the sort method
+        // calls the sort method
         sorter.sort(books);
-        // call the print method
+        // calls the print method
         sorter.print(books);
     }
 }
