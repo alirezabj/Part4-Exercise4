@@ -305,22 +305,6 @@ class TestZipper2 extends Zipper<Book> {
 
 ### C)
 
-**Define the sorting interface**
-```java
-package fi.utu.tech.ooj.exercise4.exercise2;
 
-import java.util.List;
-
-// interface for sorting books
-public interface BookCollectionSorter {
-    List<Book> sort(List<Book> books);
-}
-
-// interface for printing books
-public interface BookCollectionPrinter {
-    void print(List<Book> books);
-
-
-```
 
 
