@@ -486,6 +486,7 @@ interface BookCollectionSorter {
 
 // sorter by name
 class NameSorter implements BookCollectionSorter {
+
     @Override
     public void sort(List<Book> books) {
         Collections.sort(books);
@@ -495,6 +496,7 @@ class NameSorter implements BookCollectionSorter {
     public void print(List<Book> books) {
         books.forEach(System.out::println);
     }
+
 }
 
 // sorter by line count
@@ -521,9 +523,10 @@ class UniqueWordCountSorter implements BookCollectionSorter {
     public void print(List<Book> books) {
         books.forEach(System.out::println);
     }
+
 }
 
-// heneral Book Collection Handler
+// general Book Collection Handler
 class BookCollectionHandler {
     private final List<Book> books;
 
