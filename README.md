@@ -465,7 +465,7 @@ public class TestZipper2 extends Zipper {
 }
 ```
 
-**In order to design and interface and methods, I will update testzipper2 and calle it testzipper3**
+**In order to design an interface and methods, I will update testzipper2 and call it testzipper3**
 
 ```java
 
