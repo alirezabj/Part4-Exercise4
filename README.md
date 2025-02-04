@@ -162,9 +162,9 @@ abstract public class Zipper<X> implements AutoCloseable {
 ```
 
 **Changes:**
-- Added generics (X) to Zipper and Handler. Therefore, instead of modifyinh an external list, each handler returns an object of type X
-- Updated run() to return a list of results. Now, run() collects the results from all handlers and returns them as a List<X>.
-- Updated Handler class to be generic. Each handler now returns an object instead of just processing files.
+- add generics (X) to Zipper and Handler. Therefore, instead of modifyinh an external list, each handler returns an object of type X
+- update run() to return a list of results. Now, run() collects the results from all handlers and returns them as a List<X>.
+- update Handler class to be generic. Each handler now returns an object instead of just processing files.
 
 --
 
