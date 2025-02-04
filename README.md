@@ -465,10 +465,134 @@ public class TestZipper2 extends Zipper {
 }
 ```
 
-**Interface:**
+**In order to design and interface and methods, I will update testzipper2 and calle it testzipper3**
+
 ```java
+
+
+package fi.utu.tech.ooj.exercise4.exercise3;
+
+import fi.utu.tech.ooj.exercise4.exercise2.Book;
+
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+// interface for Book Collection Sorters
+interface BookCollectionSorter {
+    void sort(List<Book> books);
+    void print(List<Book> books);
+}
+
+// sorter by name
+class NameSorter implements BookCollectionSorter {
+    @Override
+    public void sort(List<Book> books) {
+        Collections.sort(books);
+    }
+
+    @Override
+    public void print(List<Book> books) {
+        books.forEach(System.out::println);
+    }
+}
+
+// sorter by line count
+class LineCountSorter implements BookCollectionSorter {
+    @Override
+    public void sort(List<Book> books) {
+        books.sort(Comparator.comparingInt(Book::getLineCount));
+    }
+
+    @Override
+    public void print(List<Book> books) {
+        books.forEach(System.out::println);
+    }
+}
+
+// sorter by unique word count
+class UniqueWordCountSorter implements BookCollectionSorter {
+    @Override
+    public void sort(List<Book> books) {
+        books.sort(Comparator.comparingInt(Book::getUniqueWordCount).reversed());
+    }
+
+    @Override
+    public void print(List<Book> books) {
+        books.forEach(System.out::println);
+    }
+}
+
+// heneral Book Collection Handler
+class BookCollectionHandler {
+    private final List<Book> books;
+
+    public BookCollectionHandler(List<Book> books) {
+        this.books = books;
+    }
+
+    public void handleSorting(BookCollectionSorter sorter) {
+        sorter.sort(books);
+        sorter.print(books);
+    }
+}
+
+
+package fi.utu.tech.ooj.exercise4.exercise3;
+
+import fi.utu.tech.ooj.exercise4.exercise2.Book;
+import fi.utu.tech.ooj.exercise4.exercise1.Zipper;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+
+public class TestZipper3 extends Zipper {
+
+    private final List<Book> books = new ArrayList<>();
+
+    public TestZipper3(String zipFile) throws IOException {
+        super(zipFile);
+    }
+
+    @Override
+    public void run() throws IOException {
+        super.run();
+
+        BookCollectionHandler handler = new BookCollectionHandler(books);
+
+        // sorting by name
+        handler.handleSorting(new NameSorter());
+
+        // sorting by line count
+        handler.handleSorting(new LineCountSorter());
+
+        // sorting by unique word count
+        handler.handleSorting(new UniqueWordCountSorter());
+    }
+
+    @Override
+    protected Handler createHandler(Path file) {
+        return new Handler(file) {
+            @Override
+            public void handle() {
+                try {
+                    books.add(new Book(file));
+                } catch (IOException e) {
+                    System.err.println("Failed to read book");
+                }
+            }
+        };
+    }
+}
+
+
 ```
 
+**Changes:**
+- The book class remains the same
+- instead of manually sorting in multiple places as in TestZipper2, TestZipper3 leverages the BookCollectionHandler to handle sorting and printing. BookCollectionSorter interface defines the contract for sorting and printing book collections
 
 
 
