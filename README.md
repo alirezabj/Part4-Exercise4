@@ -599,7 +599,7 @@ public class TestZipper3 extends Zipper {
 
 **Changes:**
 - The book class remains the same
-- instead of manually sorting in multiple places as in TestZipper2, TestZipper3 leverages the BookCollectionHandler to handle sorting and printing. BookCollectionSorter interface defines the contract for sorting and printing book collections
+- instead of manually sorting in multiple places like in TestZipper2, TestZipper3 uses the BookCollectionHandler to handle sorting and printing. BookCollectionSorter interface defines the contract for sorting and printing book collections
 
 
 
