@@ -480,7 +480,9 @@ import java.util.List;
 
 // interface for Book Collection Sorters
 interface BookCollectionSorter {
+    // method for sorting books
     void sort(List<Book> books);
+    // method for printing books
     void print(List<Book> books);
 }
 
@@ -535,7 +537,9 @@ class BookCollectionHandler {
     }
 
     public void handleSorting(BookCollectionSorter sorter) {
+        // call the sort method
         sorter.sort(books);
+        // call the print method
         sorter.print(books);
     }
 }
