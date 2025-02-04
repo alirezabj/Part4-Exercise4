@@ -296,7 +296,7 @@ class TestZipper2 extends Zipper<Book> {
 
 **Changes:**
 - TestZipper2 extends Zipper<Book> - `TestZipper2` is genenric and now it works with `Book` objects explicitly 
-- captures the returned `List<Book>` from `super.run()` - The run() method now captures the list of processed Book objects returned from the super.run() call.
+- capture the returned `List<Book>` from `super.run()` - The run() method now captures the list of processed Book objects returned from the super.run() call.
 - add processed books to the `books` array
 - use genenrics in `Handler<Book>`
 - `handle()` returnes a book object.
